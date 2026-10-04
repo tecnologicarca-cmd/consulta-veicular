@@ -1,0 +1,496 @@
+{
+  "id": "91c09dc8-9755-48c6-93bb-f168e52cdfdc",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.api_provider_settings": {
+      "name": "api_provider_settings",
+      "schema": "",
+      "columns": {
+        "key": {
+          "name": "key",
+          "type": "varchar(24)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "encrypted_bearer": {
+          "name": "encrypted_bearer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "encrypted_device": {
+          "name": "encrypted_device",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "admin_password_hash": {
+          "name": "admin_password_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "base_url": {
+          "name": "base_url",
+          "type": "varchar(400)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'https://gateway.apibrasil.io/api/v2'"
+        },
+        "endpoints": {
+          "name": "endpoints",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"dados\":\"/vehicles/dados\",\"renavam\":\"/vehicles/base/000/dados\",\"fipe\":\"/vehicles/fipe\",\"multas\":\"/vehicles/multas\",\"roubo\":\"/vehicles/roubo-furto\",\"leilao\":\"/vehicles/leilao\",\"recall\":\"/vehicles/recall\"}'::jsonb"
+        },
+        "payload_mapping": {
+          "name": "payload_mapping",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"placaField\":\"placa\",\"renavamField\":\"renavam\",\"renavamTypeField\":\"\",\"renavamTypeValue\":\"renavam\"}'::jsonb"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.business_settings": {
+      "name": "business_settings",
+      "schema": "",
+      "columns": {
+        "key": {
+          "name": "key",
+          "type": "varchar(32)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "markup_percent": {
+          "name": "markup_percent",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'40'"
+        },
+        "fixed_fee_cents": {
+          "name": "fixed_fee_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "minimum_charge_cents": {
+          "name": "minimum_charge_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 199
+        },
+        "free_lookup_enabled": {
+          "name": "free_lookup_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "pix_provider": {
+          "name": "pix_provider",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'manual'"
+        },
+        "pix_key_type": {
+          "name": "pix_key_type",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'random'"
+        },
+        "pix_key": {
+          "name": "pix_key",
+          "type": "varchar(160)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "mp_access_token": {
+          "name": "mp_access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mp_webhook_secret": {
+          "name": "mp_webhook_secret",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "merchant_name": {
+          "name": "merchant_name",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ARCA CONSULTAS'"
+        },
+        "merchant_city": {
+          "name": "merchant_city",
+          "type": "varchar(80)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'SAO PAULO'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.consultation_orders": {
+      "name": "consultation_orders",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "visitor_id": {
+          "name": "visitor_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lookup_type": {
+          "name": "lookup_type",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lookup_value": {
+          "name": "lookup_value",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "services": {
+          "name": "services",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cost_cents": {
+          "name": "cost_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "price_cents": {
+          "name": "price_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pix_code": {
+          "name": "pix_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pix_txid": {
+          "name": "pix_txid",
+          "type": "varchar(80)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pix_provider": {
+          "name": "pix_provider",
+          "type": "varchar(24)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'manual'"
+        },
+        "provider_payment_id": {
+          "name": "provider_payment_id",
+          "type": "varchar(80)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qr_code_base64": {
+          "name": "qr_code_base64",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payer_email": {
+          "name": "payer_email",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "result": {
+          "name": "result",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paid_at": {
+          "name": "paid_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confirmed_at": {
+          "name": "confirmed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "consultation_orders_visitor_created_idx": {
+          "name": "consultation_orders_visitor_created_idx",
+          "columns": [
+            {
+              "expression": "visitor_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "consultation_orders_status_idx": {
+          "name": "consultation_orders_status_idx",
+          "columns": [
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "consultation_orders_txid_idx": {
+          "name": "consultation_orders_txid_idx",
+          "columns": [
+            {
+              "expression": "pix_txid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.vehicle_consultations": {
+      "name": "vehicle_consultations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "visitor_id": {
+          "name": "visitor_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plate": {
+          "name": "plate",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "search_type": {
+          "name": "search_type",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'placa'"
+        },
+        "search_value": {
+          "name": "search_value",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "services": {
+          "name": "services",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "varchar(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duration_ms": {
+          "name": "duration_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "vehicle_consultations_visitor_created_idx": {
+          "name": "vehicle_consultations_visitor_created_idx",
+          "columns": [
+            {
+              "expression": "visitor_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "vehicle_consultations_plate_idx": {
+          "name": "vehicle_consultations_plate_idx",
+          "columns": [
+            {
+              "expression": "plate",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "vehicle_consultations_search_value_idx": {
+          "name": "vehicle_consultations_search_value_idx",
+          "columns": [
+            {
+              "expression": "search_value",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
